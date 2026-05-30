@@ -148,18 +148,32 @@
   /* ── SIDEBAR ── */
   #sidebar{
     padding:14px 18px 14px 6px;display:flex;
-    flex-direction:column;gap:12px;overflow-y:auto;min-height:0;
+    flex-direction:column;gap:10px;overflow:hidden;min-height:0;
   }
-  #sidebar::-webkit-scrollbar{width:3px}
-  #sidebar::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
-  .s-card{background:var(--surface);border-radius:var(--radius);padding:14px;box-shadow:var(--shadow)}
-  #tasks-card{flex:1;display:flex;flex-direction:column;min-height:0}
+  .s-card{background:var(--surface);border-radius:var(--radius);padding:14px;box-shadow:var(--shadow);flex-shrink:0}
+
+  /* Tasks card fills all remaining space */
+  #tasks-card{
+    flex:1;min-height:0;display:flex;flex-direction:column;
+    overflow:hidden;flex-shrink:1;
+  }
   #tasks-card .s-title{flex-shrink:0}
   #tasks-card #task-list-tabs{flex-shrink:0}
   #tasks-card #task-assignee-row{flex-shrink:0}
-  #tasks-card #tasks-list{flex:1;overflow-y:auto;min-height:0}
+  #tasks-card #tasks-list{
+    flex:1;overflow-y:auto;min-height:0;
+  }
   #tasks-card #tasks-list::-webkit-scrollbar{width:3px}
   #tasks-card #tasks-list::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
+
+  /* Coming Up card is compact — fixed small height */
+  #upcoming-card{
+    flex-shrink:0;max-height:160px;display:flex;flex-direction:column;overflow:hidden;
+  }
+  #upcoming-card .s-title{flex-shrink:0}
+  #upcoming-list{overflow-y:auto;flex:1;min-height:0}
+  #upcoming-list::-webkit-scrollbar{width:3px}
+  #upcoming-list::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
   .s-title{
     font-size:10px;font-weight:800;text-transform:uppercase;
     letter-spacing:.7px;color:var(--text2);margin-bottom:10px;
@@ -398,7 +412,7 @@
     <div id="tasks-list"><div class="empty-msg">Loading…</div></div>
   </div>
   <!-- Coming up card -->
-  <div class="s-card">
+  <div class="s-card" id="upcoming-card">
     <div class="s-title">🔜 Coming Up</div>
     <div id="upcoming-list"><div class="empty-msg">Loading…</div></div>
   </div>
